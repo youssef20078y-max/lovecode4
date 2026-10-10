@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Nada — From Karim ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Noto+Naskh+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red-main: #931a1a;
+            --black-bg: #000000;
+            --pink-accent: #ff85a1;
+            --text-color: #ffffff;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body, html {
+            margin: 0; padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, var(--black-bg) 0%, var(--red-main) 40%, var(--pink-accent) 100%);
+            background-attachment: fixed;
+            color: var(--text-color);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* ===== FALLING HEARTS ===== */
+        .falling-item {
+            position: fixed; top: -10%; color: #fff;
+            pointer-events: none; z-index: 999;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* ===== LOCK SCREEN ===== */
+        #lock-screen {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(ellipse at center, #1a0010 0%, #000 70%);
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            z-index: 6000;
+            overflow: hidden;
+        }
+
+        .lock-bg-hearts {
+            position: absolute; inset: 0;
+            pointer-events: none; overflow: hidden;
+        }
+        .lock-bg-hearts span {
+            position: absolute;
+            opacity: 0.07;
+            animation: floatHeart 8s ease-in-out infinite;
+        }
+        @keyframes floatHeart {
+            0%,100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.1); }
+        }
+
+        /* Titles outside heart */
+        .lock-title-outer {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.6rem;
+            color: var(--pink-accent);
+            text-shadow: 0 0 25px rgba(255,133,161,0.7);
+            margin-bottom: 4px;
+            text-align: center;
+            z-index: 1;
+        }
+        .lock-sub-outer {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            font-style: italic;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 18px;
+            text-align: center;
+            letter-spacing: 2px;
+            z-index: 1;
+        }
+
+        /* ===== HEART SHAPE (CSS only, no SVG clip issues) ===== */
+        .heart-wrap {
+            position: relative;
+            width: 290px;
+            height: 270px;
+            margin: 0 auto;
+            z-index: 1;
+        }
+
+        /* Heart using two rotated boxes trick — perfectly centered */
+        .heart-bg {
+            position: absolute;
+            inset: 0;
+            background: rgba(255,133,161,0.18);
+            backdrop-filter: blur(12px);
+            clip-path: path('M 145 245 C 145 245 15 165 15 85 C 15 44 48 14 85 14 C 108 14 128 26 145 44 C 162 26 182 14 205 14 C 242 14 275 44 275 85 C 275 165 145 245 145 245 Z');
+            animation: hbeatBg 2s ease-in-out infinite;
+            box-shadow: 0 0 50px rgba(255,133,161,0.25);
+        }
+        /* Glowing border via second layer */
+        .heart-bg::after {
+            content: '';
+            position: absolute; inset: 0;
+            clip-path: path('M 145 245 C 145 245 15 165 15 85 C 15 44 48 14 85 14 C 108 14 128 26 145 44 C 162 26 182 14 205 14 C 242 14 275 44 275 85 C 275 165 145 245 145 245 Z');
+            border: 2px solid rgba(255,133,161,0.55);
+            pointer-events: none;
+        }
+        @keyframes hbeatBg {
+            0%,100% { transform: scale(1); }
+            14%     { transform: scale(1.04); }
+            28%     { transform: scale(1); }
+            42%     { transform: scale(1.025); }
+            56%     { transform: scale(1); }
+        }
+
+        /* Content inside heart */
+        .heart-inner {
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding-bottom: 50px; /* nudge up inside heart curve */
+            gap: 10px;
+        }
+
+        .heart-emoji {
+            font-size: 2.2rem;
+            filter: drop-shadow(0 0 10px rgba(255,133,161,0.9));
+            animation: pulseEmoji 1.6s ease-in-out infinite;
+            line-height: 1;
+        }
+        @keyframes pulseEmoji {
+            0%,100% { transform: scale(1); }
+            50%     { transform: scale(1.18); }
+        }
+
+        input[type="password"] {
+            width: 145px;
+            padding: 10px 14px;
+            background: rgba(255,255,255,0.14);
+            border: 1.5px solid rgba(255,133,161,0.55);
+            border-radius: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            outline: none;
+            color: #fff;
+            font-family: 'Cormorant Garamond', serif;
+            letter-spacing: 4px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        input[type="password"]:focus {
+            border-color: var(--pink-accent);
+            box-shadow: 0 0 14px rgba(255,133,161,0.45);
+        }
+        input[type="password"]::placeholder {
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.75rem;
+        }
+
+        .unlock-btn {
+            background: linear-gradient(135deg, var(--red-main), #c0375a);
+            color: white; border: none;
+            padding: 10px 22px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+            font-family: 'Playfair Display', serif;
+            box-shadow: 0 0 18px rgba(255,133,161,0.45);
+            transition: transform 0.2s, box-shadow 0.2s;
+            letter-spacing: 0.5px;
+        }
+        .unlock-btn:hover { transform: scale(1.06); box-shadow: 0 0 30px rgba(255,133,161,0.7); }
+        .unlock-btn:active { transform: scale(0.96); }
+
+        #errorMsg {
+            color: var(--pink-accent);
+            display: none;
+            margin-top: 12px;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 0.9rem;
+            text-align: center;
+            z-index: 1;
+        }
+        @keyframes shake {
+            0%,100% { transform: translateX(0); }
+            25%     { transform: translateX(-8px); }
+            75%     { transform: translateX(8px); }
+        }
+
+        /* ===== LETTER SECTION ===== */
+        #main-content { display: none; padding: 30px 20px; text-align: center; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .section-fade { animation: fadeInUp 0.8s ease forwards; }
+
+        .letter-header {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.8rem;
+            color: var(--pink-accent);
+            text-shadow: 0 0 20px rgba(255,133,161,0.5);
+            margin-bottom: 5px;
+        }
+        .letter-from {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .typing-container {
+            background: rgba(0,0,0,0.6);
+            padding: 30px;
+            border-radius: 25px;
+            margin: 10px auto 25px;
+            max-width: 620px;
+            border: 1px solid rgba(255,133,161,0.3);
+            line-height: 2.3;
+            font-size: 1.25rem;
+            white-space: pre-wrap;
+            text-align: right;
+            min-height: 80px;
+            font-family: 'Noto Naskh Arabic', serif;
+            font-weight: 400;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        .cursor {
+            display: inline-block;
+            width: 2px; height: 1.2em;
+            background: var(--pink-accent);
+            animation: blink 0.8s infinite;
+            vertical-align: middle;
+            margin-right: 2px;
+        }
+        @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+
+        .nav-btn {
+            background: linear-gradient(135deg, var(--red-main), #c0375a);
+            color: white; border: none;
+            padding: 16px 45px;
+            border-radius: 50px;
+            font-size: 1.05rem;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 700;
+            box-shadow: 0 0 25px rgba(255,133,161,0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 15px;
+            letter-spacing: 1px;
+        }
+        .nav-btn:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(255,133,161,0.6); }
+        .nav-btn:active { transform: scale(0.97); }
+
+        /* ===== MEMORIES ===== */
+        #memories-section { display: none; padding: 30px 20px; text-align: center; }
+
+        .memories-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: var(--pink-accent);
+            text-shadow: 0 0 20px rgba(255,133,161,0.6);
+            margin-bottom: 30px;
+        }
+
+        .memory-card {
+            background: rgba(0,0,0,0.75);
+            border-radius: 25px;
+            overflow: hidden;
+            margin: 0 auto 35px;
+            border: 1px solid rgba(255,133,161,0.3);
+            max-width: 520px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            transition: transform 0.3s;
+        }
+        .memory-card:hover { transform: translateY(-5px); }
+        .memory-card img { width: 100%; max-height: 420px; object-fit: cover; display: block; }
+        .memory-text {
+            padding: 18px 20px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            font-style: italic;
+            color: #ffd6e0;
+        }
+
+        /* ===== VIDEOS ===== */
+        #videos-section { display: none; padding: 30px 20px; text-align: center; }
+
+        .videos-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.8rem;
+            color: var(--pink-accent);
+            text-shadow: 0 0 20px rgba(255,133,161,0.6);
+            margin-bottom: 8px;
+        }
+        .videos-subtitle {
+            font-family: 'Noto Naskh Arabic', serif;
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.65);
+            margin-bottom: 30px;
+        }
+
+        .video-card {
+            background: rgba(0,0,0,0.75);
+            border-radius: 25px;
+            overflow: hidden;
+            margin: 0 auto 35px;
+            border: 1px solid rgba(255,133,161,0.3);
+            max-width: 560px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+        .video-card video { width: 100%; max-height: 400px; display: block; background: #000; }
+        .video-caption {
+            padding: 16px 20px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #ffd6e0;
+        }
+
+        /* ===== SONG PAGE ===== */
+        #song-section {
+            display: none;
+            padding: 60px 20px 50px;
+            text-align: center;
+            min-height: 100vh;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .song-eyebrow {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .song-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.6rem;
+            color: var(--pink-accent);
+            text-shadow: 0 0 25px rgba(255,133,161,0.7);
+            margin-bottom: 8px;
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+        @keyframes glowPulse {
+            0%,100% { text-shadow: 0 0 20px rgba(255,133,161,0.6); }
+            50%     { text-shadow: 0 0 40px rgba(255,133,161,1), 0 0 60px rgba(255,133,161,0.4); }
+        }
+        .song-arabic {
+            font-family: 'Noto Naskh Arabic', serif;
+            font-size: 1.4rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 20px;
+        }
+
+        .vinyl-wrapper {
+            position: relative;
+            width: 220px; height: 220px;
+            margin: 10px auto 25px;
+        }
+        .vinyl {
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 50% 50%,
+                #333 0%, #111 30%, #222 31%,
+                #111 50%, #333 51%,
+                #111 70%, #222 71%, #111 100%);
+            box-shadow: 0 0 40px rgba(255,133,161,0.4);
+            animation: spin 4s linear infinite paused;
+        }
+        .vinyl.playing { animation-play-state: running; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .vinyl-center {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+            width: 55px; height: 55px;
+            background: var(--pink-accent);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255,133,161,0.6);
+        }
+
+        .final-quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.88);
+            max-width: 560px;
+            margin: 35px auto 20px;
+            line-height: 2;
+            padding: 25px 30px;
+            border-left: 3px solid var(--pink-accent);
+            border-right: 3px solid var(--pink-accent);
+            text-align: center;
+        }
+        .final-quote em {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.8rem;
+            color: var(--pink-accent);
+            display: block;
+            margin-top: 15px;
+            font-style: normal;
+        }
+
+        /* ===== WHATSAPP CONTACT BUTTON ===== */
+        .wa-fab {
+            position: fixed; left: 14px; bottom: 14px; z-index: 7000;
+            display: inline-flex; align-items: center; gap: 8px;
+            background: #25D366; color: #fff; text-decoration: none;
+            font-family: 'Tajawal', sans-serif; font-weight: 700; font-size: 0.95rem;
+            padding: 11px 20px 11px 16px; border-radius: 50px;
+            box-shadow: 0 8px 22px rgba(18,140,126,0.55);
+            transition: transform 0.2s, background 0.2s;
+        }
+        .wa-fab:hover { background: #128C7E; transform: translateY(-2px); }
+        .wa-fab:active { transform: scale(0.96); }
+        .wa-fab svg { width: 20px; height: 20px; fill: #fff; flex: none; }
+        #main-content, #memories-section, #videos-section { padding-bottom: 90px; }
+        #song-section { padding-bottom: 90px; }
+    </style>
+</head>
+<body>
+
+    <!-- WHATSAPP -->
+    <a class="wa-fab" href="https://wa.me/201108235028?text=%D8%B9%D8%A7%D9%8A%D8%B2%20%D8%A3%D8%B9%D8%B1%D9%81%20%D8%B9%D8%B1%D9%88%D8%B6%20%D8%A7%D9%84%D9%88%D9%8A%D8%A8%20%D8%B3%D8%A7%D9%8A%D8%AA%D8%B3%20%D8%A5%D9%8A%D9%87" target="_blank" rel="noopener"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 3 3.3 8.6 3.3 15.5c0 2.4.7 4.7 1.9 6.6L3 29l7.1-2.1c1.8 1 3.8 1.5 5.900 1.5 7 0 12.700-5.600 12.700-12.500S23 3 16 3zm0 22.800c-1.900 0-3.700-.5-5.300-1.500l-.4-.2-4.200 1.200 1.300-4-.3-.4a10 10 0 0 1-1.600-5.400C5.500 10 10.200 5.500 16 5.500S26.500 10 26.500 15.500 21.800 25.800 16 25.800zm5.800-7.600c-.3-.2-1.900-.9-2.200-1-.3-.1-.5-.2-.7.200-.2.300-.8 1-1 1.200-.2.200-.4.200-.7.100-.3-.2-1.400-.5-2.600-1.600-1-.9-1.600-1.900-1.800-2.200-.2-.3 0-.5.100-.7l.5-.6c.2-.2.200-.3.300-.5.100-.2.100-.4 0-.6l-1-2.300c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.100-.9.400-.3.300-1.200 1.100-1.200 2.800s1.200 3.300 1.400 3.500c.2.200 2.400 3.700 5.800 5.100.8.400 1.500.6 2 .8.8.3 1.600.2 2.200.1.700-.1 1.900-.8 2.200-1.500.3-.7.300-1.400.2-1.500-.1-.2-.3-.3-.6-.4z"/></svg>تواصل معايا</a>
+
+    <!-- AUDIOS -->
+    <audio id="song1" loop><source src="song1.mp3" type="audio/mpeg"></audio>
+    <audio id="song2" loop><source src="song2.mp3" type="audio/mpeg"></audio>
+
+    <!-- ===== LOCK SCREEN ===== -->
+    <div id="lock-screen">
+        <div class="lock-bg-hearts" id="bgHearts"></div>
+
+        <h1 class="lock-title-outer">Welcome, Nada</h1>
+        <p class="lock-sub-outer">This was made just for you 🤍</p>
+
+        <div class="heart-wrap">
+            <div class="heart-bg"></div>
+            <div class="heart-inner">
+                <span class="heart-emoji">❤️</span>
+                <input type="password" id="passInput" placeholder="Enter the password">
+                <button class="unlock-btn" onclick="checkPass()">Open My Heart ❤️</button>
+            </div>
+        </div>
+
+        <p id="errorMsg">Wrong password, my queen 😉</p>
+    </div>
+
+    <!-- ===== LETTER SECTION ===== -->
+    <div id="main-content">
+        <h2 class="letter-header section-fade">إلى ندى</h2>
+        <p class="letter-from section-fade">From Karim — with all his heart</p>
+        <div class="typing-container" id="text-display"><span class="cursor" id="cursor"></span></div>
+        <button class="nav-btn" id="btn-memories" onclick="goTo('memories')" style="display:none;">
+            ادخلي ألبوم ذكرياتنا 📸
+        </button>
+    </div>
+
+    <!-- ===== MEMORIES SECTION ===== -->
+    <div id="memories-section">
+        <h2 class="memories-title">ذكرياتنا ✨</h2>
+
+        <div class="memory-card"><img src="https://images.unsplash.com/photo-1480618376353-2950ee462b17?auto=format&fit=crop&w=900&q=70" alt="ذكرى" loading="lazy" onerror="this.style.display='none'"><div class="memory-text">"Every moment with you is a page I never want to end." 🌹</div></div>
+        <div class="memory-card"><img src="https://images.unsplash.com/photo-1663579167845-c73285e3805b?auto=format&fit=crop&w=900&q=70" alt="ذكرى" loading="lazy" onerror="this.style.display='none'"><div class="memory-text">"You're the song that plays on repeat in my heart." 🎵</div></div>
+        <div class="memory-card"><img src="https://images.unsplash.com/photo-1706565029539-a6dd5496ee30?auto=format&fit=crop&w=900&q=70" alt="ذكرى" loading="lazy" onerror="this.style.display='none'"><div class="memory-text">"In your smile I found my favorite place on earth." ✨</div></div>
+        <div class="memory-card"><img src="https://images.unsplash.com/photo-1575388104683-e076ee9ccaa0?auto=format&fit=crop&w=900&q=70" alt="ذكرى" loading="lazy" onerror="this.style.display='none'"><div class="memory-text">"Time flies, but what we have is timeless." 💫</div></div>
+        <div class="memory-card"><img src="https://images.unsplash.com/photo-1632101498980-73bc65b300c5?auto=format&fit=crop&w=900&q=70" alt="ذكرى" loading="lazy" onerror="this.style.display='none'"><div class="memory-text">"You make the ordinary feel extraordinary." 🌸</div></div>
+        <div class="memory-card"><img src="https://images.unsplash.com/photo-1555689070-2d15336749b6?auto=format&fit=crop&w=900&q=70" alt="ذكرى" loading="lazy" onerror="this.style.display='none'"><div class="memory-text">️"With you, even the simplest moments feel special." 🌸</div></div>
+        <div class="memory-card"><img src="https://images.unsplash.com/photo-1640273296013-e4b54eaf52eb?auto=format&fit=crop&w=900&q=70" alt="ذكرى" loading="lazy" onerror="this.style.display='none'"><div class="memory-text">"With you, every day is a reason to be grateful." 🌙</div></div>
+        <div class="memory-card"><img src="https://images.unsplash.com/photo-1719405524206-30751869956f?auto=format&fit=crop&w=900&q=70" alt="ذكرى" loading="lazy" onerror="this.style.display='none'"><div class="memory-text">"You are my calm in every storm." 🌊</div></div>
+        <div class="memory-card"><img src="https://images.unsplash.com/photo-1684895800144-7fb91695a9be?auto=format&fit=crop&w=900&q=70" alt="ذكرى" loading="lazy" onerror="this.style.display='none'"><div class="memory-text">"I didn’t know what happiness meant until I met you." 💫</div></div>
+        <div class="memory-card"><img src="https://images.unsplash.com/photo-1511405889574-b01de1da5441?auto=format&fit=crop&w=900&q=70" alt="ذكرى" loading="lazy" onerror="this.style.display='none'"><div class="memory-text">"A thousand lifetimes, and I'd choose you in every single one." 🕊️</div></div>
+
+        <button class="nav-btn" onclick="goTo('videos')">ادخلي الفيديوهات 🎬</button>
+    </div>
+
+    <!-- ===== VIDEOS SECTION ===== -->
+    <div id="videos-section">
+        <h2 class="videos-title">عملتلك شوية فيديوهات</h2>
+        <p class="videos-subtitle">مخصوصة ليكي يا قمر 🎬✨</p>
+
+        <div class="video-card">
+            <video controls><source src="video1.mp4" type="video/mp4"></video>
+            <div class="video-caption">"The best moments are the ones we share." 🎥</div>
+        </div>
+        <div class="video-card">
+            <video controls><source src="video2.mp4" type="video/mp4"></video>
+            <div class="video-caption">"Every frame with you is a memory I treasure." 💞</div>
+        </div>
+        <div class="video-card">
+            <video controls><source src="video3.mp4" type="video/mp4"></video>
+            <div class="video-caption">"This one's made with nothing but love." 🌹</div>
+        </div>
+
+        <button class="nav-btn" onclick="goTo('song')" style="margin-top:20px;">دوسي هنا 🎵</button>
+    </div>
+
+    <!-- ===== SONG SECTION ===== -->
+    <div id="song-section">
+        <p class="song-eyebrow">A Song Made Just For You</p>
+        <h2 class="song-title">This songs was made for you</h2>
+        <p class="song-arabic">بحبك 😍</p>
+
+        <div class="vinyl-wrapper">
+            <div class="vinyl" id="vinyl"></div>
+            <div class="vinyl-center"></div>
+        </div>
+
+        <audio id="song3Player" controls style="width:90%;max-width:350px;border-radius:30px;margin-top:10px;">
+            <source src="song3.mp3" type="audio/mpeg">
+        </audio>
+         <audio id="song3Player" controls style="width:90%;max-width:350px;border-radius:30px;margin-top:10px;">
+            <source src="song4.mp3" type="audio/mpeg">
+        </audio>
+        
+
+        <div class="final-quote">
+            "The past year — every single second of it —<br>
+            has been the most beautiful year of my entire life.<br>
+            Not because of where we went or what we did,<br>
+            but simply because I spent every moment of it with you."
+            <em>— Karim 💕</em>
+        </div>
+    </div>
+
+    <script>
+        // ===== SECTION MAP =====
+        const sectionIds = {
+            letter:   'main-content',
+            memories: 'memories-section',
+            videos:   'videos-section',
+            song:     'song-section'
+        };
+        let currentSection = 'lock';
+
+        let typingIv = null;
+
+        // يوقف الكتابة ويعرض الرسالة كاملة (بيتنفذ لما المستخدم يسيب صفحة الرسالة)
+        function finishTyping() {
+            if(typingIv) { clearInterval(typingIv); typingIv = null; }
+            const display = document.getElementById('text-display');
+            const cursor  = document.getElementById('cursor');
+            display.textContent = msg;
+            display.appendChild(cursor);
+            cursor.style.display = 'none';
+            document.getElementById('btn-memories').style.display = 'inline-block';
+        }
+
+        function showOnly(name) {
+            if(name !== 'letter' && typingIv) finishTyping();
+            // hide everything except lock (lock managed separately)
+            Object.values(sectionIds).forEach(id => {
+                document.getElementById(id).style.display = 'none';
+            });
+            if(name === 'lock') return;
+            const el = document.getElementById(sectionIds[name]);
+            if(el) el.style.display = (name === 'song') ? 'flex' : 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function goTo(name) {
+            history.pushState({ section: name }, '', '#' + name);
+            currentSection = name;
+            showOnly(name);
+            handleMusic(name);
+        }
+
+        // Back button — go one step back, never exit the site
+        window.addEventListener('popstate', (e) => {
+            const state = e.state;
+            if(!state || !state.section) {
+                // Prevent exit — push current back
+                history.pushState({ section: currentSection }, '', '#' + currentSection);
+                return;
+            }
+            currentSection = state.section;
+            showOnly(state.section);
+            handleMusic(state.section);
+        });
+
+        // ===== MUSIC =====
+        function stopAll() {
+            ['song1','song2','song3Player'].forEach(id => {
+                const el = document.getElementById(id);
+                if(el) { el.pause(); el.currentTime = 0; }
+            });
+            document.getElementById('vinyl').classList.remove('playing');
+        }
+
+        function handleMusic(name) {
+            stopAll();
+            if(name === 'letter') {
+                document.getElementById('song1').play().catch(()=>{});
+            } else if(name === 'memories') {
+                document.getElementById('song2').play().catch(()=>{});
+            } else if(name === 'song') {
+                const player = document.getElementById('song3Player');
+                player.play().catch(()=>{});
+                player.onplay  = () => document.getElementById('vinyl').classList.add('playing');
+                player.onpause = () => document.getElementById('vinyl').classList.remove('playing');
+            }
+            // videos: no background music (intentional)
+        }
+
+        // ===== LOCK BG HEARTS =====
+        const bgHearts = document.getElementById('bgHearts');
+        for(let i = 0; i < 30; i++) {
+            const s = document.createElement('span');
+            s.innerHTML = ['❤️','💕','🌹','✨'][Math.floor(Math.random()*4)];
+            s.style.left = Math.random()*100 + '%';
+            s.style.top  = Math.random()*100 + '%';
+            s.style.fontSize = (Math.random()*1.5 + 0.6) + 'rem';
+            s.style.animationDelay    = (Math.random()*5) + 's';
+            s.style.animationDuration = (Math.random()*4 + 5) + 's';
+            bgHearts.appendChild(s);
+        }
+
+        // ===== ENTER KEY =====
+        document.getElementById('passInput').addEventListener('keydown', e => {
+            if(e.key === 'Enter') checkPass();
+        });
+
+        // ===== PASSWORD CHECK =====
+        function checkPass() {
+            const val = document.getElementById('passInput').value.trim().toLowerCase();
+            if(val === 'love') {
+                document.getElementById('lock-screen').style.display = 'none';
+                // Replace initial history entry so back button can't go to a blank page
+                history.replaceState({ section: 'letter' }, '', '#letter');
+                currentSection = 'letter';
+                showOnly('letter');
+                handleMusic('letter');
+                startTyping();
+                spawnFallingItems();
+            } else {
+                const err = document.getElementById('errorMsg');
+                err.style.display = 'block';
+                err.style.animation = 'none';
+                void err.offsetWidth;
+                err.style.animation = 'shake 0.4s ease';
+            }
+        }
+
+        // ===== TYPING =====
+        const msg = `ينور عيني يا ندى 💞
+
+يا أجمل حاجة حصلتلي في الدنيا دي ❤️
+من أول يوم شوفتك فيه، وأنا حبيتك حب من كل قلبي 💫
+
+كل لحظة بقضيها معاكي بتبقى ذكرى محفورة في قلبي
+ومش هنساها أبداً 🌹
+
+عارفة إن الكلام مهما كان، مش هيوصف حبي ليكي
+بحبك بطريقة مش هتوصفها كلمات 💕
+
+معاكي الدنيا أحلى كتير
+ويارب دايماً نفضل سوا 💞
+
+سنة كاملة يا ندى 🌙
+سنة من أجمل اللحظات اللي عشتها في حياتي
+كل يوم فيها كان أحلى من اللي قبله بسببك
+
+مش هنسى أول مرة ضحكتِ قدامي
+حسيت إن الدنيا بأكلها اتنورت في اللحظة دي ✨
+
+ومش هنسى أول مرة قلتِلي إنك بتحبيني
+قلبي وقفت لحظة، وبعدين طار من الفرحة 🕊️
+
+بحبك مش بس عشان إنتِ جميلة
+بحبك عشان قلبك أجمل من أي حاجة تانية ❤️
+
+بحبك عشان بتفهميني من غير ما أتكلم
+وبتحسيني إن أنا مش لوحدي في الدنيا دي 💞
+
+بحبك عشان معاكي بحس إن الوقت بيعدي بسرعة
+وفي نفس الوقت بتمنى إن كل لحظة تفضل للأبد 🌹
+
+الدنيا دي كبيرة يا ندى
+بس من غيرك حاسس إنها ضيقة وناقصة
+ومعاكي حاسس إنها أكبر من أي حلم حلمته 💫
+
+يا رب يخليكِ ليا
+ويا رب نفضل سوا لآخر يوم في عمرنا 🌙
+
+بحبك يا ندى ❤️
+من كل قلبي، من أول نبضة لآخر نبضة 💕 
+
+بحبك ي اعظم انتصراتي 🥹🥹🥹❤️♥️`;
+        function startTyping() {
+            const display = document.getElementById('text-display');
+            const cursor  = document.getElementById('cursor');
+            display.textContent = '';
+            display.appendChild(cursor);
+            // الزرار يظهر بعد ثانيتين من بدء الكتابة، من غير ما المستخدم يستنى الرسالة تخلص
+            setTimeout(() => {
+                document.getElementById('btn-memories').style.display = 'inline-block';
+            }, 2000);
+            let i = 0;
+            typingIv = setInterval(() => {
+                display.insertBefore(document.createTextNode(msg[i]), cursor);
+                i++;
+                if(i >= msg.length) {
+                    clearInterval(typingIv); typingIv = null;
+                    cursor.style.display = 'none';
+                    document.getElementById('btn-memories').style.display = 'inline-block';
+                }
+                // يتابع الكتابة لتحت بس لو المستخدم قريب من آخر الصفحة، عشان يقدر يطلع يقرا براحته
+                if(currentSection === 'letter' && window.innerHeight + window.scrollY >= document.body.scrollHeight - 220) {
+                    window.scrollTo(0, document.body.scrollHeight);
+                }
+            }, 80);
+        }
+
+        // ===== FALLING HEARTS (capped at 60) =====
+        function spawnFallingItems() {
+            let count = 0;
+            setInterval(() => {
+                if(count >= 60) return;
+                const item = document.createElement('div');
+                item.className = 'falling-item';
+                item.innerHTML = Math.random() > 0.5 ? '❤️' : '⭐';
+                item.style.left = Math.random()*100 + 'vw';
+                item.style.animationDuration = (Math.random()*5 + 3) + 's';
+                document.body.appendChild(item);
+                count++;
+                setTimeout(() => { item.remove(); count--; }, 8000);
+            }, 300);
+        }
+
+        // On load — make sure no hash confusion
+        history.replaceState(null, '', window.location.pathname);
+    </script>
+</body>
+</html>
